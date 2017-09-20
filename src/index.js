@@ -36,15 +36,15 @@ export interface Either <A, B> {
 
 // Contains an A, applies the first function
 export const Left = <A, B> (a: A): Either<A, B> =>
-  <C> (ac, bc) => ac(a)
+  (ac, bc) => ac(a)
 
 // Contains a B, applies the second function
 export const Right = <A, B> (b: B): Either<A, B> =>
-  <C> (ac, bc) => bc(b)
+  (ac, bc) => bc(b)
 
 // Turn Either A B into Either A C
-export const mapEither = <A, B, C> (f: B => C, e: Either<A, B>): Either<A, C> =>
-  (ac, cd) => e(ac, b => cd(f(b)))
+export const bimapEither = <A, B, C, D> (f: A => C, g: B => D, e: Either<A, B>): Either<A, C> =>
+  (cd, de) => e(a => cd(f(a)), b => de(g(b)))
 
 // Product (pair)
 // Accepts a function that takes both elements of the pair
@@ -53,12 +53,14 @@ export interface Pair<A, B> {
 }
 
 // Create a Pair containing an A and a B
+// Note: sadly, Flow has a single namespace for
+// types and functions, so this cannot be named Pair
 export const P = <A, B> (a: A, b: B): Pair<A, B> =>
-  <C> (f) => f(a, b)
+  (f) => f(a, b)
 
 // Map both elements of a Pair
 export const bimapPair = <A, B, C, D> (ac: A => C, bd: B => D, p: Pair<A, B>): Pair<C, D> =>
-  <E> (f) => p((a, b) => f(ac(a), bd(b)))
+  (f) => p((a, b) => f(ac(a), bd(b)))
 
 // Get the first element of a Pair
 export const fst = <A, B> (p: Pair<A, B>): A =>
@@ -79,8 +81,8 @@ export const Nil = <A, B> (f: (B, A) => B, b: B) => b
 
 // Cons has 1 or more As
 export const Cons = <A> (a: A, tail: List<A>): List<A> =>
-  <B> (f, b) => f(tail(f, b), a)
+  (f, b) => f(tail(f, b), a)
 
 // Turn List A into List B
 export const mapList = <A, B> (f: A => B, l: List<A>): List<B> =>
-  <C> (g, c) => l((c, a) => g(c, f(a)), c)
+  (g, c) => l((c, a) => g(c, f(a)), c)
