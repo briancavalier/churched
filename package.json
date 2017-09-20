@@ -1,0 +1,29 @@
+{
+  "name": "churched",
+  "version": "1.0.0",
+  "description": "Church encoded types with Flow",
+  "main": "dist/index.js",
+  "author": "brian@briancavalier.com",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint-plugin-flowtype": "^2.35.1",
+    "flow-bin": "^0.54.1",
+    "mocha": "^3.5.3",
+    "nyc": "^11.2.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "flow"
+    ]
+  },
+  "devDependencies": {}
+}
